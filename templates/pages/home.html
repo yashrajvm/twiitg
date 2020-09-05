@@ -74,6 +74,9 @@ function handleTweetCreateFormDidSubmit(event){
             }
 
             
+        }else if (xhr.status === 401){
+            alert("Please login!")
+            window.location.href = "/login"
         }else if (xhr.status === 500){
             alert("There was a server error. Please try again")
         }
@@ -102,7 +105,7 @@ function loadTweets(tweetsElement){
     xhr.onload = function(){
 
             const serverResponse = xhr.response
-            const listedItems = xhr.response.response
+            const listedItems = serverResponse
             var finalTweetStr = ""
             var i;
             for(i=0; i<listedItems.length; i++){
