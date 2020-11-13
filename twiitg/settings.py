@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     # internal
-    'accounts',
-    'profiles',
+    # 'accounts',
+    # 'profiles',
     'tweets',
 ]
 
@@ -139,19 +139,21 @@ CORS_ORIGIN_ALLOW_ALL = True # any website has access to my api
 CORS_URLS_REGEX = r'^/api/.*$'
 
 DEFAULT_RENDERER_CLASSES = [
-    'rest_framework.renderers.JSONRenderer',
-]
-
-if DEBUG:
-    DEFAULT_RENDERER_CLASSES += [
-        'rest_framework.renderers.BrowsableAPIRenderer'
+        'rest_framework.renderers.JSONRenderer',
     ]
 
-
+DEFAULT_AUTHENTICATION_CLASSES = [
+    'rest_framework.authentication.SessionAuthentication'
+]
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES += [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+    # DEFAULT_AUTHENTICATION_CLASSES += [
+    #     'tweetme2.rest_api.dev.DevAuthentication'
+    # ]
 REST_FRAMEWORK = {
-
-    'DEFAULT_AUTHENTICATION_CLASSES':[
-        'rest_framework.authentication.SessionAuthentication'
-    ],
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': DEFAULT_AUTHENTICATION_CLASSES,
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
 }
